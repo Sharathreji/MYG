@@ -4,108 +4,118 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>myG Birthday Celebration</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
-    :root {
-      --primary-blue: #0074E9;
-      --accent-gold: #FFD700;
-      --bg-light: #F9FAFB;
-      --text-dark: #333;
-    }
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(180deg, #E6F0FF, #F9FAFB);
-      color: var(--text-dark);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    .confetti {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 1;
-    }
-    .card {
-      background: #fff;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-      border-radius: 1.5rem;
-      text-align: center;
-      padding: 2.5rem 2rem;
-      position: relative;
-      z-index: 10;
-      max-width: 480px;
-      width: 90%;
-      animation: float 4s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    h1 {
-      font-size: 2.4rem;
-      color: var(--primary-blue);
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-    p {
-      font-size: 1.1rem;
-      margin-bottom: 2rem;
-      color: #444;
-    }
-    button {
-      background: linear-gradient(90deg, var(--primary-blue), #00A6FF);
-      border: none;
-      border-radius: 2rem;
-      color: #fff;
-      padding: 1rem 2rem;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 20px rgba(0,116,233,0.4);
-    }
-    button:after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: rgba(255,255,255,0.3);
-      transition: left 0.5s;
-    }
-    button:hover:after {
-      left: 100%;
-    }
-    .coupon {
-      display: none;
-      margin-top: 2rem;
-      font-size: 1.4rem;
-      color: var(--accent-gold);
-      font-weight: 700;
-      animation: fadeIn 1s ease forwards;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1); }
-    }/* Letter Section */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Dancing+Script:wght@600&display=swap');:root {
+  --primary-orange: #FF4B00;
+  --accent-gold: #FFD700;
+  --bg-light: #FFF9F5;
+  --text-dark: #2D2D2D;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(180deg, #FFF2E8, #FFF9F5);
+  color: var(--text-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.confetti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card {
+  background: #fff;
+  box-shadow: 0 10px 40px rgba(255, 75, 0, 0.15);
+  border-radius: 1.5rem;
+  text-align: center;
+  padding: 2.5rem 2rem;
+  position: relative;
+  z-index: 10;
+  max-width: 480px;
+  width: 90%;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+h1 {
+  font-size: 2.4rem;
+  color: var(--primary-orange);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: var(--text-dark);
+}
+
+button {
+  background: linear-gradient(90deg, #FF4B00, #FF7A00);
+  border: none;
+  border-radius: 2rem;
+  color: #fff;
+  padding: 1rem 2.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(255, 75, 0, 0.4);
+}
+
+button:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.3);
+  transition: left 0.5s;
+}
+
+button:hover:after {
+  left: 100%;
+}
+
+.coupon {
+  display: none;
+  margin-top: 2rem;
+  font-size: 1.4rem;
+  color: var(--accent-gold);
+  font-weight: 700;
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
 .letter-section {
-  background: #fffdf9;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  background: #fff7f0;
+  box-shadow: 0 10px 40px rgba(255, 75, 0, 0.15);
   border-radius: 1rem;
   padding: 3rem 2rem;
   max-width: 700px;
@@ -113,34 +123,56 @@
   font-family: 'Dancing Script', cursive;
   line-height: 1.8;
   color: #3b3b3b;
-  border: 2px solid rgba(255,215,0,0.3);
+  border: 2px solid rgba(255, 75, 0, 0.2);
   position: relative;
   z-index: 5;
 }
-.letter-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(145deg, rgba(255,255,255,0.4), rgba(255,255,255,0.2));
-  border-radius: 1rem;
-  z-index: -1;
-}
+
 .letter-section h2 {
   font-family: 'Poppins', sans-serif;
-  color: var(--primary-blue);
+  color: var(--primary-orange);
   text-align: center;
   font-size: 1.8rem;
   margin-bottom: 1rem;
 }
+
 .signature {
   text-align: right;
   margin-top: 2rem;
   font-family: 'Dancing Script', cursive;
   font-size: 1.5rem;
-  color: var(--primary-blue);
+  color: var(--primary-orange);
+  opacity: 0;
+  animation: signature 2s ease forwards 2s;
+}
+
+@keyframes signature {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.seal {
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle at 30% 30%, #FF7A00, #FF4B00);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.2rem;
+  position: absolute;
+  bottom: -50px;
+  right: 50%;
+  transform: translateX(50%);
+  box-shadow: 0 4px 15px rgba(255, 75, 0, 0.3);
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+
+.seal:hover {
+  transform: translateX(50%) scale(1.1);
 }
 
   </style>
@@ -151,28 +183,32 @@
     <h1>🎉 Happy Birthday, Sahad Manakal! 🎉</h1>
     <p>We’re thrilled to celebrate *you* today. Here's something special to make your day brighter.</p>
     <button onclick="revealGift()">🎁 Your Birthday Gift</button>
-    <div class="coupon" id="coupon">Coupon Code: <span style="color:#0074E9;">MYG202511</span> – Get <strong>10% OFF</strong>!</div>
-  </div>  <div class="letter-section">
+    <div class="coupon" id="coupon">Coupon Code: <span style="color:var(--primary-orange);">MYG202511</span> – Get <strong>10% OFF</strong>!</div>
+  </div>  <div class="letter-section" id="letter">
     <h2>A Special Letter from the myG Family 💌</h2>
     <p>Dear <strong>Sahad Manakal</strong>,</p>
-    <p>Today, as you celebrate another wonderful year of life, we at <strong>myG</strong> want to take a moment to tell you how much you mean to us. You’re not just a valued customer — you’re part of our story, our inspiration, and our journey forward. Every click, every purchase, every smile you’ve shared with us has fueled our commitment to deliver nothing but excellence.</p>
-    <p>Your trust has helped shape myG into what it is today — a growing family that values connection, trust, and innovation. You are the heart of our community, Sahad. Without amazing customers like you, there would be no us.</p>
-    <p>May this year bring you endless happiness, success, and moments filled with joy. Know that every time you visit myG, you are not just shopping — you are a part of something bigger, a family that celebrates you, supports you, and believes in you.</p>
-    <p>Thank you for being the incredible person you are and for letting us be part of your journey. Have a truly wonderful birthday filled with surprises and smiles — because you deserve it all!</p>
-    <div class="signature">With love and gratitude,<br>— The myG Team 💙</div>
+    <p>Today, as we celebrate your birthday, every one of us at <strong>myG</strong> wants to thank you from the heart. You’ve been more than a customer — you’ve been a friend, a believer, and a true part of our family. Every interaction, every moment shared with you adds life to our mission and warmth to our brand.</p>
+    <p>Your trust and loyalty have inspired us to innovate, to serve better, and to create experiences that reflect our gratitude. You remind us daily why we do what we do — because people like you make it all worthwhile. You’re an integral part of myG’s journey, and your story fuels ours.</p>
+    <p>As we wish you another year of happiness, success, and love, remember — you’ll always have a place in the myG family. May your birthday shine as bright as your spirit, and may the year ahead bring countless smiles, opportunities, and memories worth cherishing.</p>
+    <div class="signature">With love and gratitude,<br>— The myG Team 🧡</div>
+    <div class="seal" onclick="openSeal()">myG</div>
   </div><audio id="celebrateSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_1a85f0a79a.mp3?filename=success-1-6297.mp3" preload="auto"></audio>
 
   <script>
+    // Confetti animation setup
     const canvas = document.querySelector('.confetti');
     const ctx = canvas.getContext('2d');
     let confettis = [];
-    const colors = ['#0074E9', '#FFD700', '#00C4FF', '#FFFFFF'];
+    const colors = ['#FF4B00', '#FFD700', '#FF7A00', '#FFFFFF'];
+
     function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     }
+
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
+
     function createConfetti() {
       for (let i = 0; i < 100; i++) {
         confettis.push({
@@ -185,17 +221,19 @@
         });
       }
     }
+
     function drawConfetti() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       confettis.forEach(conf => {
         ctx.beginPath();
         ctx.fillStyle = conf.color;
-        ctx.ellipse(conf.x, conf.y, conf.r, conf.r/2, Math.PI / 4, 0, 2 * Math.PI);
+        ctx.ellipse(conf.x, conf.y, conf.r, conf.r / 2, Math.PI / 4, 0, 2 * Math.PI);
         ctx.fill();
       });
       updateConfetti();
       requestAnimationFrame(drawConfetti);
     }
+
     function updateConfetti() {
       confettis.forEach(conf => {
         conf.y += conf.d / 10;
@@ -205,9 +243,11 @@
         }
       });
     }
+
     createConfetti();
     drawConfetti();
 
+    // Reveal coupon gift
     function revealGift() {
       const coupon = document.getElementById('coupon');
       const audio = document.getElementById('celebrateSound');
@@ -217,6 +257,16 @@
       setTimeout(() => {
         alert('🎊 Coupon Copied: MYG202511');
       }, 800);
+    }
+
+    // Seal open animation
+    function openSeal() {
+      const seal = document.querySelector('.seal');
+      seal.style.transform = 'translateX(50%) scale(0)';
+      seal.style.opacity = '0';
+      setTimeout(() => {
+        document.getElementById('letter').scrollIntoView({ behavior: 'smooth' });
+      }, 400);
     }
   </script></body>
 </html>
