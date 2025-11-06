@@ -1,113 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Medicine Finder</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
-    }
-    body {
-      margin: 0;
-      background: linear-gradient(to right, #e3f2fd, #ffffff);
-      color: #333;
-      padding: 2rem;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: white;
-      padding: 2rem;
-      border-radius: 1.5rem;
-      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 1rem;
-      color: #1976d2;
-    }
-    input[type="text"] {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      border: 2px solid #1976d2;
-      border-radius: 0.75rem;
-      font-size: 1rem;
-      outline: none;
-      margin-bottom: 1.5rem;
-    }
-    .results {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-    .card {
-      background: #f1f8ff;
-      padding: 1rem;
-      border-radius: 1rem;
-      border-left: 4px solid #1976d2;
-      transition: 0.3s ease;
-    }
-    .card:hover {
-      background: #e3f2fd;
-    }
-    .card strong {
-      color: #0d47a1;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>myG Birthday Celebration</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #001F3F 0%, #0074D9 100%);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .card {
+    background: rgba(255,255,255,0.1);
+    border-radius: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    padding: 3rem 4rem;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #FFD700;
+    margin-bottom: 1rem;
+  }
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  button {
+    background: linear-gradient(90deg, #FF4136, #FF851B);
+    border: none;
+    border-radius: 1.5rem;
+    padding: 1rem 2rem;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(255, 165, 0, 0.6);
+  }
+  .coupon {
+    display: none;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    color: #00FF88;
+    font-weight: 600;
+    letter-spacing: 2px;
+    animation: fadeIn 1s ease forwards;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <h1>⚕️ Medicine Finder</h1>
-    <input type="text" id="search" placeholder="Search by content (e.g., Aceclofenac)..." />
-    <div id="results" class="results"></div>
-  </div>
-
-  <script>
-    const data = {
-      "ACEBROPHYILLINE AND N-ACETYLCYSTEINE": ["AB DAY PLUS TAB", "AB FLO-N TAB", "ABRYL - N TAB", "MUCINAC  AB  TAB"],
-      "ACEBROPHYLLINE": ["AB DAY 100 MG TAB", "AB FLO 100MG CAP", "AB PHYLLINE SR 200MG", "AB PHYLLINE TAB", "ABOFLIN- F TAB", "NARKBRO CAP", "PULMOCLEAR TAB", "ZYBROCLEAR 100 MG TAB"],
-      "ACECLOFENAC": ["HIFENAC 100 MG TAB"],
-      "ACECLOFENAC &THIIOCOLCHICOSIDE": ["ISINAC-T TAB", "ZERODOL TH 4 TAB"],
-      "ACECLOFENAC +PARACETAMOL": ["ACILEX-P TAB", "ALTO-P TAB", "CATAFEN-P TAB"],
-      "ACECLOFENAC 100MG DROTAVERINE": ["ZERODOL SPAS"],
-      "ACECLOFENAC WITH SERRATIOPEPTIDASE": ["ACER FORT TAB"],
-      "ACECLOFENAC, PARACETAMOL AND SERRATIOPEPTIDASE": ["ISINAC - PS TAB"],
-      "ACETAZOLAMIDE": ["DIAMOX 250 MG TAB"],
-      "ACETYLCYSTEINE": ["ASYNAC 600 MG TAB", "MUCINAC 200 MG TAB"],
-      "ACETYLCYSTEINE ,ACEBROPHYLLINE": ["MUCOTAB AB"],
-      "ACICLOVIR": ["ACIVIR 400DT TAB", "ACIVIR-800 DT", "INJ ACIVIR", "SYP ZOVIRAX", "TRIKASE 200MG TAB", "TRIKASE 400 MG TAB"],
-      "ACETYL CYSTEINE": ["CLEARNAC 600 MG TAB", "INJ MUCOMIX 5 ML", "MUCINAC 600MG TAB"],
-      "METRONIDAZOLE": ["METROGYL ER TAB"]
-      ""
-    };
-
-    const searchInput = document.getElementById("search");
-    const resultsDiv = document.getElementById("results");
-
-    searchInput.addEventListener("input", function () {
-      const query = this.value.toLowerCase();
-      resultsDiv.innerHTML = "";
-      if (!query) return;
-
-      let found = false;
-      Object.keys(data).forEach(content => {
-        if (content.toLowerCase().includes(query)) {
-          found = true;
-          const brandList = data[content];
-          const card = document.createElement("div");
-          card.className = "card";
-          card.innerHTML = `<strong>${content}</strong><br>${brandList.join("<br>")}`;
-          resultsDiv.appendChild(card);
-        }
-      });
-
-      if (!found) {
-        resultsDiv.innerHTML = '<div class="card">No matching medicine content found.</div>';
-      }
-    });
-  </script>
-</body>
+  <div class="card">
+    <h1>🎉 Happy Birthday from myG! 🎉</h1>
+    <p>We’re celebrating you today! Here’s a little surprise to make your day brighter.</p>
+    <button onclick="revealCoupon()">🎁 Your Birthday Gift</button>
+    <div class="coupon" id="coupon">🎊 Coupon Code: <span style="color:#FFD700;">MYG202511</span> – Get <b>10% OFF</b>!</div>
+  </div>  <script>
+    function revealCoupon() {
+      const coupon = document.getElementById('coupon');
+      coupon.style.display = 'block';
+    }
+  </script></body>
 </html>
