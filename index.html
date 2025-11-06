@@ -5,6 +5,7 @@
   <title>myG Birthday Celebration</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
     :root {
       --primary-blue: #0074E9;
       --accent-gold: #FFD700;
@@ -17,10 +18,11 @@
       background: linear-gradient(180deg, #E6F0FF, #F9FAFB);
       color: var(--text-dark);
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      overflow: hidden;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
     .confetti {
       position: fixed;
@@ -30,6 +32,7 @@
       height: 100%;
       pointer-events: none;
       overflow: hidden;
+      z-index: 1;
     }
     .card {
       background: #fff;
@@ -39,7 +42,7 @@
       padding: 2.5rem 2rem;
       position: relative;
       z-index: 10;
-      max-width: 450px;
+      max-width: 480px;
       width: 90%;
       animation: float 4s ease-in-out infinite;
     }
@@ -99,20 +102,67 @@
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(0.8); }
       to { opacity: 1; transform: scale(1); }
-    }
+    }/* Letter Section */
+.letter-section {
+  background: #fffdf9;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  border-radius: 1rem;
+  padding: 3rem 2rem;
+  max-width: 700px;
+  margin-top: 3rem;
+  font-family: 'Dancing Script', cursive;
+  line-height: 1.8;
+  color: #3b3b3b;
+  border: 2px solid rgba(255,215,0,0.3);
+  position: relative;
+  z-index: 5;
+}
+.letter-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(145deg, rgba(255,255,255,0.4), rgba(255,255,255,0.2));
+  border-radius: 1rem;
+  z-index: -1;
+}
+.letter-section h2 {
+  font-family: 'Poppins', sans-serif;
+  color: var(--primary-blue);
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+.signature {
+  text-align: right;
+  margin-top: 2rem;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.5rem;
+  color: var(--primary-blue);
+}
+
   </style>
 </head>
 <body>
   <canvas class="confetti"></canvas>
   <div class="card">
-    <h1 id="greeting">🎉 Happy Birthday! 🎉</h1>
-    <p id="message">We’re thrilled to celebrate *you* today. Here's something special to make your day brighter.</p>
+    <h1>🎉 Happy Birthday, Sahad Manakal! 🎉</h1>
+    <p>We’re thrilled to celebrate *you* today. Here's something special to make your day brighter.</p>
     <button onclick="revealGift()">🎁 Your Birthday Gift</button>
     <div class="coupon" id="coupon">Coupon Code: <span style="color:#0074E9;">MYG202511</span> – Get <strong>10% OFF</strong>!</div>
-  </div>
-  <audio id="celebrateSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_1a85f0a79a.mp3?filename=success-1-6297.mp3" preload="auto"></audio>
+  </div>  <div class="letter-section">
+    <h2>A Special Letter from the myG Family 💌</h2>
+    <p>Dear <strong>Sahad Manakal</strong>,</p>
+    <p>Today, as you celebrate another wonderful year of life, we at <strong>myG</strong> want to take a moment to tell you how much you mean to us. You’re not just a valued customer — you’re part of our story, our inspiration, and our journey forward. Every click, every purchase, every smile you’ve shared with us has fueled our commitment to deliver nothing but excellence.</p>
+    <p>Your trust has helped shape myG into what it is today — a growing family that values connection, trust, and innovation. You are the heart of our community, Sahad. Without amazing customers like you, there would be no us.</p>
+    <p>May this year bring you endless happiness, success, and moments filled with joy. Know that every time you visit myG, you are not just shopping — you are a part of something bigger, a family that celebrates you, supports you, and believes in you.</p>
+    <p>Thank you for being the incredible person you are and for letting us be part of your journey. Have a truly wonderful birthday filled with surprises and smiles — because you deserve it all!</p>
+    <div class="signature">With love and gratitude,<br>— The myG Team 💙</div>
+  </div><audio id="celebrateSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_1a85f0a79a.mp3?filename=success-1-6297.mp3" preload="auto"></audio>
+
   <script>
-    // Confetti animation
     const canvas = document.querySelector('.confetti');
     const ctx = canvas.getContext('2d');
     let confettis = [];
@@ -156,26 +206,17 @@
       });
     }
     createConfetti();
-    drawConfetti();// Gift reveal logic
-function revealGift() {
-  const coupon = document.getElementById('coupon');
-  const audio = document.getElementById('celebrateSound');
-  coupon.style.display = 'block';
-  audio.play();
-  navigator.clipboard.writeText('MYG202511');
-  setTimeout(() => {
-    alert('🎊 Coupon Copied: MYG202511');
-  }, 800);
-}
+    drawConfetti();
 
-// Personalize greeting if name is available via URL param
-const params = new URLSearchParams(window.location.search);
-const name = params.get('name');
-if (name) {
-  document.getElementById('greeting').innerText = `🎉 Happy Birthday, ${name}! 🎉`;
-  document.getElementById('message').innerText = `We’re thrilled to celebrate you today, ${name}. Here's something special from myG to brighten your day.`;
-}
-
-  </script>
-</body>
+    function revealGift() {
+      const coupon = document.getElementById('coupon');
+      const audio = document.getElementById('celebrateSound');
+      coupon.style.display = 'block';
+      audio.play();
+      navigator.clipboard.writeText('MYG202511');
+      setTimeout(() => {
+        alert('🎊 Coupon Copied: MYG202511');
+      }, 800);
+    }
+  </script></body>
 </html>
