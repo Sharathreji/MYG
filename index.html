@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,68 +8,85 @@
     :root {
       --primary-blue: #0074E9;
       --accent-gold: #FFD700;
-      --bg-light: #F9F9F9;
-      --text-dark: #333333;
+      --bg-light: #F9FAFB;
+      --text-dark: #333;
     }
     body {
-      margin:0;
-      padding:0;
+      margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: var(--bg-light);
+      background: linear-gradient(180deg, #E6F0FF, #F9FAFB);
       color: var(--text-dark);
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-    }
-    .card {
-      background: #ffffff;
-      max-width: 480px;
-      width: 90%;
-      border-radius: 1rem;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-      padding: 2.5rem 2rem;
-      text-align: center;
-      position: relative;
       overflow: hidden;
     }
-    .card::before {
-      content: "";
-      position: absolute;
-      top: -50px;
-      right: -50px;
-      width: 150px;
-      height: 150px;
-      background: var(--primary-blue);
-      opacity: 0.05;
-      border-radius: 50%;
+    .confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .card {
+      background: #fff;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      border-radius: 1.5rem;
+      text-align: center;
+      padding: 2.5rem 2rem;
+      position: relative;
+      z-index: 10;
+      max-width: 450px;
+      width: 90%;
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
     h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
+      font-size: 2.4rem;
       color: var(--primary-blue);
-      margin-bottom: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
     }
     p {
       font-size: 1.1rem;
-      font-weight: 300;
-      margin-bottom: 1.8rem;
-      line-height: 1.4;
+      margin-bottom: 2rem;
+      color: #444;
     }
     button {
-      background: var(--primary-blue);
-      color: #ffffff;
+      background: linear-gradient(90deg, var(--primary-blue), #00A6FF);
       border: none;
-      border-radius: 0.8rem;
-      padding: 1rem 1.8rem;
+      border-radius: 2rem;
+      color: #fff;
+      padding: 1rem 2rem;
       font-size: 1rem;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
     button:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 16px rgba(0, 116, 233, 0.4);
+      box-shadow: 0 4px 20px rgba(0,116,233,0.4);
+    }
+    button:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.3);
+      transition: left 0.5s;
+    }
+    button:hover:after {
+      left: 100%;
     }
     .coupon {
       display: none;
@@ -78,28 +94,88 @@
       font-size: 1.4rem;
       color: var(--accent-gold);
       font-weight: 700;
-      letter-spacing: 1.2px;
-      animation: fadeIn 0.8s ease forwards;
+      animation: fadeIn 1s ease forwards;
     }
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
     }
   </style>
 </head>
 <body>
+  <canvas class="confetti"></canvas>
   <div class="card">
-    <h1>Happy Birthday from myG 🎉</h1>
-    <p>We’re thrilled to celebrate *you* today. Here's something special to make your day even brighter.</p>
-    <button onclick="showCoupon()">🎁 Reveal Your Gift</button>
-    <div class="coupon" id="coupon">Coupon Code: <span style="color:var(--primary-blue);">MYG202511</span> — Enjoy <strong>10% OFF</strong>!</div>
+    <h1 id="greeting">🎉 Happy Birthday! 🎉</h1>
+    <p id="message">We’re thrilled to celebrate *you* today. Here's something special to make your day brighter.</p>
+    <button onclick="revealGift()">🎁 Your Birthday Gift</button>
+    <div class="coupon" id="coupon">Coupon Code: <span style="color:#0074E9;">MYG202511</span> – Get <strong>10% OFF</strong>!</div>
   </div>
-
+  <audio id="celebrateSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_1a85f0a79a.mp3?filename=success-1-6297.mp3" preload="auto"></audio>
   <script>
-    function showCoupon(){
-      const c = document.getElementById('coupon');
-      c.style.display = 'block';
+    // Confetti animation
+    const canvas = document.querySelector('.confetti');
+    const ctx = canvas.getContext('2d');
+    let confettis = [];
+    const colors = ['#0074E9', '#FFD700', '#00C4FF', '#FFFFFF'];
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    function createConfetti() {
+      for (let i = 0; i < 100; i++) {
+        confettis.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          r: Math.random() * 6 + 4,
+          d: Math.random() * 10 + 10,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          tilt: Math.random() * 10 - 10
+        });
+      }
+    }
+    function drawConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      confettis.forEach(conf => {
+        ctx.beginPath();
+        ctx.fillStyle = conf.color;
+        ctx.ellipse(conf.x, conf.y, conf.r, conf.r/2, Math.PI / 4, 0, 2 * Math.PI);
+        ctx.fill();
+      });
+      updateConfetti();
+      requestAnimationFrame(drawConfetti);
+    }
+    function updateConfetti() {
+      confettis.forEach(conf => {
+        conf.y += conf.d / 10;
+        if (conf.y > canvas.height) {
+          conf.y = -10;
+          conf.x = Math.random() * canvas.width;
+        }
+      });
+    }
+    createConfetti();
+    drawConfetti();// Gift reveal logic
+function revealGift() {
+  const coupon = document.getElementById('coupon');
+  const audio = document.getElementById('celebrateSound');
+  coupon.style.display = 'block';
+  audio.play();
+  navigator.clipboard.writeText('MYG202511');
+  setTimeout(() => {
+    alert('🎊 Coupon Copied: MYG202511');
+  }, 800);
+}
+
+// Personalize greeting if name is available via URL param
+const params = new URLSearchParams(window.location.search);
+const name = params.get('name');
+if (name) {
+  document.getElementById('greeting').innerText = `🎉 Happy Birthday, ${name}! 🎉`;
+  document.getElementById('message').innerText = `We’re thrilled to celebrate you today, ${name}. Here's something special from myG to brighten your day.`;
+}
+
   </script>
 </body>
 </html>
