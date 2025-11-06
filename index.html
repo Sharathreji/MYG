@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medicine Finder</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      margin: 0;
+      background: linear-gradient(to right, #e3f2fd, #ffffff);
+      color: #333;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #1976d2;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid #1976d2;
+      border-radius: 0.75rem;
+      font-size: 1rem;
+      outline: none;
+      margin-bottom: 1.5rem;
+    }
+    .results {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .card {
+      background: #f1f8ff;
+      padding: 1rem;
+      border-radius: 1rem;
+      border-left: 4px solid #1976d2;
+      transition: 0.3s ease;
+    }
+    .card:hover {
+      background: #e3f2fd;
+    }
+    .card strong {
+      color: #0d47a1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⚕️ Medicine Finder</h1>
+    <input type="text" id="search" placeholder="Search by content (e.g., Aceclofenac)..." />
+    <div id="results" class="results"></div>
+  </div>
+
+  <script>
+    const data = {
+      "ACEBROPHYILLINE AND N-ACETYLCYSTEINE": ["AB DAY PLUS TAB", "AB FLO-N TAB", "ABRYL - N TAB", "MUCINAC  AB  TAB"],
+      "ACEBROPHYLLINE": ["AB DAY 100 MG TAB", "AB FLO 100MG CAP", "AB PHYLLINE SR 200MG", "AB PHYLLINE TAB", "ABOFLIN- F TAB", "NARKBRO CAP", "PULMOCLEAR TAB", "ZYBROCLEAR 100 MG TAB"],
+      "ACECLOFENAC": ["HIFENAC 100 MG TAB"],
+      "ACECLOFENAC &THIIOCOLCHICOSIDE": ["ISINAC-T TAB", "ZERODOL TH 4 TAB"],
+      "ACECLOFENAC +PARACETAMOL": ["ACILEX-P TAB", "ALTO-P TAB", "CATAFEN-P TAB"],
+      "ACECLOFENAC 100MG DROTAVERINE": ["ZERODOL SPAS"],
+      "ACECLOFENAC WITH SERRATIOPEPTIDASE": ["ACER FORT TAB"],
+      "ACECLOFENAC, PARACETAMOL AND SERRATIOPEPTIDASE": ["ISINAC - PS TAB"],
+      "ACETAZOLAMIDE": ["DIAMOX 250 MG TAB"],
+      "ACETYLCYSTEINE": ["ASYNAC 600 MG TAB", "MUCINAC 200 MG TAB"],
+      "ACETYLCYSTEINE ,ACEBROPHYLLINE": ["MUCOTAB AB"],
+      "ACICLOVIR": ["ACIVIR 400DT TAB", "ACIVIR-800 DT", "INJ ACIVIR", "SYP ZOVIRAX", "TRIKASE 200MG TAB", "TRIKASE 400 MG TAB"],
+      "ACETYL CYSTEINE": ["CLEARNAC 600 MG TAB", "INJ MUCOMIX 5 ML", "MUCINAC 600MG TAB"],
+      "METRONIDAZOLE": ["METROGYL ER TAB"]
+      ""
+    };
+
+    const searchInput = document.getElementById("search");
+    const resultsDiv = document.getElementById("results");
+
+    searchInput.addEventListener("input", function () {
+      const query = this.value.toLowerCase();
+      resultsDiv.innerHTML = "";
+      if (!query) return;
+
+      let found = false;
+      Object.keys(data).forEach(content => {
+        if (content.toLowerCase().includes(query)) {
+          found = true;
+          const brandList = data[content];
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `<strong>${content}</strong><br>${brandList.join("<br>")}`;
+          resultsDiv.appendChild(card);
+        }
+      });
+
+      if (!found) {
+        resultsDiv.innerHTML = '<div class="card">No matching medicine content found.</div>';
+      }
+    });
+  </script>
+</body>
+</html>
